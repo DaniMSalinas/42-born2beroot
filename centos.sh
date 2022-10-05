@@ -1,4 +1,3 @@
-# 42-born2beroot
 #root:rootroot
 #dmaldona:messi10Barsa
 
@@ -118,4 +117,5 @@ sudo rsync -avP ~/wordpress/ /var/www/html/
 mkdir /var/www/html/wp-content/uploads
 sudo chown -R lighttpd:lighttpd /var/www/html/*
 cd /var/www/html
-cp wp-config-sample.php wp-config.php #modify the file with the database info
+cp wp-config-sample.php wp-config.php
+vim wp-config.php
