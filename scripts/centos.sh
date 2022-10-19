@@ -1,13 +1,15 @@
-# 42-born2beroot
-#root:rootroot
-#dmaldona:messi10Barsa
+#! /bin/sh
+
+#diskpassword: messi10Barsa
+#root:messi10Barsa
+#dmaldona:cr7Mbappe10
 
 ##SET HOSTNAME
 hostnamectl set-hostname dmaldona42
 reboot
 
 ##GENERIC SETTINGS
-#enable internt connection (working in bridge mode)
+#enable internet connection (working in bridge mode)
 nmcli c up enps03
 
 #installing and updating packet manager repo DNF
@@ -35,6 +37,11 @@ systemctl enable ufw
 ufw enable 4242/tcp
 ufw allow 80
 
+##CONFIGURING NTP SERVER CHRONY
+systemctl start chronyd
+systemctl enable chronyd
+chronyc -a makestep
+
 ##INSTALLING AND CONFIGURING SEMANAGE
 yum install -y policycoreutils-python # -> dnf install for centos 8
 semanage port -a -t ssh_port_t -p tcp 4242
@@ -50,6 +57,10 @@ systemctl restart sshd
 vim /etc/login.defs
 vim /etc/pam.d/system-auth
 vim /etc/security/pwquality.conf
+chage -M 30 dmaldona
+chage -M 30 root
+chage -m 2 dmaldona
+chage -m 2 root
 
 ##CONFIGURING VISUDO (etc/sudoers)
 visudo
@@ -61,8 +72,8 @@ visudo
 
 ##MONITORING script
 touch /usr/local/sbin/monitoring.sh
-crontab -e */10 * * * * /usr/local/sbin/monitoring.sh | cat -e
-#BONUS
+crontab -e */10 * * * * /usr/local/sbin/monitoring.sh
+
 #https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-on-centos-7
 su - dmaldona
 sudo dnf update -y
@@ -71,7 +82,7 @@ sudo dnf update -y
 sudo dnf install mariadb-server wget -y
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
-mysql_secure_installation #password messi10Barsa // yes to all
+mysql_secure_installation
     Enter current password for root (enter for none): 
     Set root password? [Y/n] n
     Remove anonymous users? [Y/n] Y
@@ -118,4 +129,4 @@ sudo rsync -avP ~/wordpress/ /var/www/html/
 mkdir /var/www/html/wp-content/uploads
 sudo chown -R lighttpd:lighttpd /var/www/html/*
 cd /var/www/html
-cp wp-config-sample.php wp-config.php #modify the file with the database info
+cp wp-config-sample.php wp-config.php
