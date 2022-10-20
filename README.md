@@ -1,13 +1,9 @@
-#### 42-born2beroot
-# root:messi10Barsa
-# dmaldona:mmmholaQuetal22
-# dmaldona:dmaldona42#@.dario #wordpress
+# 42-born2beroot
 
-## SET HOSTNAME
+#### SET HOSTNAME
 hostnamectl set-hostname dmaldona42
 reboot
 
-## GENERIC SETTINGS
 # enable internt connection (working in bridge mode)
 nmcli c up enps03
 
