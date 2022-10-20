@@ -109,6 +109,8 @@ sudo yum install -y yum-utils
 sudo yum-config-manager --enable remi-php56
 sudo yum install -y php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo
 php -v
+## https://www.tecmint.com/install-lighttpd-with-php-fpm-mariadb-on-centos/
+
 # PHP 5.6.40 (cli) (built: Sep 28 2022 10:48:43)
 systemctl restart lighttpd
 
